@@ -3,14 +3,14 @@ using System;
 
 namespace APIEscolaArabe.Models
 {
-    public class Aula
+    public class AulaDto
     {
 
         //IdModalidade
         // Aluno? aluno;
         // aluno.IdAluno;
 
-        public int Id { get; set; }
+
         public DateTime HorarioAula { get; set; }
     }
 }
