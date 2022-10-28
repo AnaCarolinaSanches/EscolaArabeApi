@@ -11,6 +11,10 @@ namespace APIEscolaArabe.Controllers
     public class EnderecoController : ControllerBase
     {
         private readonly ApplicationDbContext database;
+        public EnderecoController(ApplicationDbContext database)
+        {
+            this.database = database;
+        }
 
         [HttpGet]
         public IActionResult Get()
@@ -44,8 +48,44 @@ namespace APIEscolaArabe.Controllers
                      $"Erro ao tentar criar uma categoria. Erro: {ex.Message}");
             }
 
+        }
+        [HttpPatch]
+        public IActionResult Patch([FromBody] Endereco model)
+        {
+            if (model.Id > 0)
+            {
+                try
+                {
+                    var e = database.Enderecos.First(etemp => etemp.Id == model.Id);
+                    if (e != null)
+                    {
+                        e.Bairro = e.Bairro != null ? model.Bairro : e.Bairro;
+                        e.CEP = e.CEP != null ? model.CEP : e.CEP;
+                        e.Cidade = e.Cidade != null ? model.Cidade : e.Cidade;
+                        e.Numero = e.Numero != null ? model.Numero : e.Numero;
+                        e.Rua = e.Rua != null ? model.Rua : e.Rua;
 
+                        database.SaveChanges();
+                        return Ok();
+                    }
+                    else
+                    {
+                        Response.StatusCode = 400;
+                        return new ObjectResult(new { msg = "Rua não encontrada" });
+                    }
+                }
+                catch
+                {
+                    Response.StatusCode = 400;
+                    return new ObjectResult(new { msg = "Rua não encontrada" });
+                }
 
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return new ObjectResult(new { msg = "Id Inválido!" });
+            }
 
         }
 

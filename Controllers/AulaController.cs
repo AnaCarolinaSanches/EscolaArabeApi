@@ -11,6 +11,10 @@ namespace APIEscolaArabe.Controllers
     public class AulaController : ControllerBase
     {
         private readonly ApplicationDbContext database;
+        public AulaController(ApplicationDbContext database)
+        {
+            this.database = database;
+        }
 
         [HttpGet]
         public IActionResult Get()

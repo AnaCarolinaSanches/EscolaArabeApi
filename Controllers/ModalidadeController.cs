@@ -13,6 +13,10 @@ namespace APIEscolaArabe.Controllers
     public class ModalidadeController : ControllerBase
     {
         private readonly ApplicationDbContext database;
+        public ModalidadeController(ApplicationDbContext database)
+        {
+            this.database = database;
+        }
 
         [HttpGet]
         public IActionResult Get()
@@ -51,5 +55,44 @@ namespace APIEscolaArabe.Controllers
                     $"Erro ao tentar criar uma categoria. Erro: {ex.Message}");
             }
         }
+        [HttpPatch]
+        public IActionResult Patch([FromBody] Modalidade model)
+        {
+            if (model.Id > 0)
+            {
+                try
+                {
+                    var m = database.Modalidades.First(mtemp => mtemp.Id == model.Id);
+                    if (m != null)
+                    {
+                        m.DiasSemana = m.DiasSemana != null ? model.DiasSemana : m.DiasSemana;
+                        m.HorarioAula = m.HorarioAula != null ? model.HorarioAula : m.HorarioAula;
+                        m.NomeCurso = m.NomeCurso != null ? model.NomeCurso : m.NomeCurso;
+                        m.NomeProf = m.NomeProf != null ? model.NomeProf : m.NomeProf;
+
+                        database.SaveChanges();
+                        return Ok();
+                    }
+                    else
+                    {
+                        Response.StatusCode = 400;
+                        return new ObjectResult(new { msg = "Modalidade não encontrada" });
+                    }
+                }
+                catch
+                {
+                    Response.StatusCode = 400;
+                    return new ObjectResult(new { msg = "Modalidade não encontrada" });
+                }
+
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return new ObjectResult(new { msg = "Id Inválido!" });
+            }
+
+        }
+
     }
 }
