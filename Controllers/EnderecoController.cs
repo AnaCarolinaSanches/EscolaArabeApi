@@ -49,6 +49,7 @@ namespace APIEscolaArabe.Controllers
             }
 
         }
+
         [HttpPatch]
         public IActionResult Patch([FromBody] Endereco model)
         {
@@ -71,13 +72,13 @@ namespace APIEscolaArabe.Controllers
                     else
                     {
                         Response.StatusCode = 400;
-                        return new ObjectResult(new { msg = "Rua não encontrada" });
+                        return new ObjectResult(new { msg = "Endereço não encontrada" });
                     }
                 }
                 catch
                 {
                     Response.StatusCode = 400;
-                    return new ObjectResult(new { msg = "Rua não encontrada" });
+                    return new ObjectResult(new { msg = "Endereço não encontrada" });
                 }
 
             }
@@ -85,6 +86,26 @@ namespace APIEscolaArabe.Controllers
             {
                 Response.StatusCode = 400;
                 return new ObjectResult(new { msg = "Id Inválido!" });
+            }
+
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var endereco = database.Enderecos.First(e => e.Id == id);
+                database.Remove(endereco);
+                database.SaveChanges();
+                return Ok();
+
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = 404;
+                return new ObjectResult("");
+
             }
 
         }

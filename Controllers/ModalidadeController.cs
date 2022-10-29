@@ -94,5 +94,25 @@ namespace APIEscolaArabe.Controllers
 
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var modalidade = database.Modalidades.First(m => m.Id == id);
+                database.Remove(modalidade);
+                database.SaveChanges();
+                return Ok();
+
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = 404;
+                return new ObjectResult("");
+
+            }
+
+        }
+
     }
 }

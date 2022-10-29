@@ -30,8 +30,9 @@ namespace APIEscolaArabe.Controllers
         {
             database.Add(aluno);
             database.SaveChanges();
-            return Ok(new { Msg = "Usuário cadastrado com sucesso!" });
+            return Ok(new { Msg = "Aluno cadastrado com sucesso!" });
         }
+
         [HttpPatch]
         public IActionResult Patch([FromBody] Aluno aluno)
         {
@@ -54,13 +55,13 @@ namespace APIEscolaArabe.Controllers
                     else
                     {
                         Response.StatusCode = 400;
-                        return new ObjectResult(new { msg = "Produto não encontrado" });
+                        return new ObjectResult(new { msg = "Aluno não encontrado" });
                     }
                 }
                 catch
                 {
                     Response.StatusCode = 400;
-                    return new ObjectResult(new { msg = "Produto não encontrado" });
+                    return new ObjectResult(new { msg = "Aluno não encontrado" });
                 }
 
             }
@@ -71,6 +72,7 @@ namespace APIEscolaArabe.Controllers
             }
 
         }
+
         [HttpPost]
         public IActionResult Post([FromBody] AlunoDto model)
         {
@@ -83,7 +85,7 @@ namespace APIEscolaArabe.Controllers
                 database.Add(aluno);
                 database.SaveChanges();
 
-                return Ok(new { Msg = "Alunos criado com sucesso!" });
+                return Ok(new { Msg = "Aluno criado com sucesso!" });
 
             }
             catch (Exception ex)
@@ -93,6 +95,26 @@ namespace APIEscolaArabe.Controllers
 
             }
 
+
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var aluno = database.Alunos.First(a => a.Id == id);
+                database.Remove(aluno);
+                database.SaveChanges();
+                return Ok();
+
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = 404;
+                return new ObjectResult("");
+
+            }
 
         }
     }

@@ -46,5 +46,62 @@ namespace APIEscolaArabe.Controllers
 
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var aula = database.Aulas.First(a => a.Id == id);
+                database.Remove(aula);
+                database.SaveChanges();
+                return Ok();
+
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = 404;
+                return new ObjectResult("");
+
+            }
+
+        }
+
+        [HttpPatch]
+        public IActionResult Patch([FromBody] Aula aula)
+        {
+            if (aula.Id > 0)
+            {
+                try
+                {
+                    var a = database.Aulas.First(atemp => atemp.Id == aula.Id);
+                    if (a != null)
+                    {
+                        a.HorarioAula = a.HorarioAula != null ? aula.HorarioAula : a.HorarioAula;
+
+                        database.SaveChanges();
+                        return Ok();
+                    }
+                    else
+                    {
+                        Response.StatusCode = 400;
+                        return new ObjectResult(new { msg = "Aula não encontrado" });
+                    }
+                }
+                catch
+                {
+                    Response.StatusCode = 400;
+                    return new ObjectResult(new { msg = "Aula não encontrado" });
+                }
+
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return new ObjectResult(new { msg = "Id Inválido!" });
+            }
+
+        }
+
+
     }
 }
