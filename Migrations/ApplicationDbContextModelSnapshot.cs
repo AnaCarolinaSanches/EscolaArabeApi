@@ -26,12 +26,6 @@ namespace EscolaArabeApi.Migrations
                     b.Property<string>("CPF")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("IdCurso")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdEndereco")
-                        .HasColumnType("int");
-
                     b.Property<string>("Matricula")
                         .HasColumnType("longtext");
 

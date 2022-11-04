@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APIEscolaArabe.Controllers
 {
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class AulaController : ControllerBase
     {
@@ -20,7 +21,7 @@ namespace APIEscolaArabe.Controllers
         public IActionResult Get()
         {
             var aulas = database.Aulas.ToList();
-            return Ok("");
+            return Ok(aulas);
         }
 
         [HttpPost]
@@ -28,7 +29,7 @@ namespace APIEscolaArabe.Controllers
         {
             try
             {
-                AulaDto aulas = new AulaDto();
+                Aula aulas = new Aula();
 
                 aulas.HorarioAula = model.HorarioAula;
 
@@ -41,7 +42,7 @@ namespace APIEscolaArabe.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar criar uma categoria. Erro: {ex.Message}");
+                    $"Erro ao tentar cadastrar uma aula. Erro: {ex.Message}");
             }
 
         }
@@ -57,7 +58,7 @@ namespace APIEscolaArabe.Controllers
                 return Ok();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Response.StatusCode = 404;
                 return new ObjectResult("");
@@ -79,7 +80,7 @@ namespace APIEscolaArabe.Controllers
                         a.HorarioAula = a.HorarioAula != null ? aula.HorarioAula : a.HorarioAula;
 
                         database.SaveChanges();
-                        return Ok();
+                        return Ok(new { msg = "Aula editada com sucesso." });
                     }
                     else
                     {

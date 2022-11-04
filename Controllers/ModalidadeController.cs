@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APIEscolaArabe.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ModalidadeController : ControllerBase
     {
@@ -22,12 +22,7 @@ namespace APIEscolaArabe.Controllers
         public IActionResult Get()
         {
             var modalidades = database.Modalidades.ToList();
-            return Ok("");
-        }
-        [HttpGet("{id}")]
-        public IActionResult ListarModalidadeComId(int id)
-        {
-            return Ok("ok" + id);
+            return Ok(modalidades);
         }
 
         [HttpPost]
@@ -36,7 +31,7 @@ namespace APIEscolaArabe.Controllers
             try
             {
 
-                ModalidadeDto modalidades = new ModalidadeDto();
+                Modalidade modalidades = new Modalidade();
 
                 modalidades.DiasSemana = model.DiasSemana;
                 modalidades.HorarioAula = model.HorarioAula;
@@ -52,7 +47,7 @@ namespace APIEscolaArabe.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar criar uma categoria. Erro: {ex.Message}");
+                    $"Erro ao tentar cadastrar uma modalidade. Erro: {ex.Message}");
             }
         }
         [HttpPatch]
@@ -71,7 +66,7 @@ namespace APIEscolaArabe.Controllers
                         m.NomeProf = m.NomeProf != null ? model.NomeProf : m.NomeProf;
 
                         database.SaveChanges();
-                        return Ok();
+                        return Ok(new { msg = "Modalidade editada com sucesso." });
                     }
                     else
                     {
@@ -105,7 +100,7 @@ namespace APIEscolaArabe.Controllers
                 return Ok();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Response.StatusCode = 404;
                 return new ObjectResult("");

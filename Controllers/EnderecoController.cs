@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APIEscolaArabe.Controllers
 {
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class EnderecoController : ControllerBase
     {
@@ -20,7 +21,7 @@ namespace APIEscolaArabe.Controllers
         public IActionResult Get()
         {
             var enderecos = database.Enderecos.ToList();
-            return Ok("");
+            return Ok(enderecos);
         }
 
         [HttpPost]
@@ -28,15 +29,15 @@ namespace APIEscolaArabe.Controllers
         {
             try
             {
-                EnderecoDto enderecos = new EnderecoDto();
+                Endereco endereco = new Endereco();
 
-                enderecos.Bairro = model.Bairro;
-                enderecos.CEP = model.CEP;
-                enderecos.Cidade = model.Cidade;
-                enderecos.Numero = model.Numero;
-                enderecos.Rua = model.Rua;
+                endereco.Bairro = model.Bairro;
+                endereco.CEP = model.CEP;
+                endereco.Cidade = model.Cidade;
+                endereco.Numero = model.Numero;
+                endereco.Rua = model.Rua;
 
-                database.Add(enderecos);
+                database.Add(endereco);
                 database.SaveChanges();
 
                 return Ok(new { Msg = "Endereço criado com sucesso!" });
@@ -45,7 +46,7 @@ namespace APIEscolaArabe.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                     $"Erro ao tentar criar uma categoria. Erro: {ex.Message}");
+                    $"Erro ao tentar cadastrar um endereço. Erro: {ex.Message}");
             }
 
         }
@@ -67,7 +68,7 @@ namespace APIEscolaArabe.Controllers
                         e.Rua = e.Rua != null ? model.Rua : e.Rua;
 
                         database.SaveChanges();
-                        return Ok();
+                        return Ok(new { msg = "Endereço editado com sucesso." });
                     }
                     else
                     {
@@ -101,7 +102,7 @@ namespace APIEscolaArabe.Controllers
                 return Ok();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Response.StatusCode = 404;
                 return new ObjectResult("");

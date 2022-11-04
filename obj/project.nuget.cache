@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3a2DgfTDXarkRRxaaNt/Z0AVL1NDfaHsT816ype3dXaPRYQnwVOFqmg/QqbrEKKfMhBOguJuyg5hPJ7j5bCjNg==",
+  "dgSpecHash": "sNYptckp2Woy8yL2mLzsWr7bLNlRU0EfwOCHt8MlGQ+Y1tmJ5G0Bk7nFeLU4wz8g4R+XmNShxt1RP3QZtNVEbg==",
   "success": true,
-  "projectFilePath": "c:\\MyProjects\\EscolaArabeApi\\EscolaArabeApi.csproj",
+  "projectFilePath": "C:\\MyProjects\\EscolaArabeApi\\EscolaArabeApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aanc\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\aanc\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.1\\microsoft.aspnetcore.authentication.jwtbearer.5.0.1.nupkg.sha512",

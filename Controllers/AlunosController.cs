@@ -22,15 +22,7 @@ namespace APIEscolaArabe.Controllers
         public IActionResult Get()
         {
             var alunos = database.Alunos.ToList();
-            return Ok("");
-        }
-
-        [HttpPost("registro")]
-        public IActionResult Registro([FromBody] Aluno aluno)
-        {
-            database.Add(aluno);
-            database.SaveChanges();
-            return Ok(new { Msg = "Aluno cadastrado com sucesso!" });
+            return Ok(alunos);
         }
 
         [HttpPatch]
@@ -48,9 +40,8 @@ namespace APIEscolaArabe.Controllers
                         a.CPF = a.CPF != null ? aluno.CPF : a.CPF;
                         a.Telefone = a.Telefone != null ? aluno.Telefone : a.Telefone;
 
-
                         database.SaveChanges();
-                        return Ok();
+                        return Ok(new { msg = "Aluno editado com sucesso." });
                     }
                     else
                     {
@@ -82,6 +73,7 @@ namespace APIEscolaArabe.Controllers
                 aluno.NomeCompleto = model.NomeCompleto;
                 aluno.Matricula = model.Matricula;
                 aluno.CPF = model.CPF;
+                aluno.Telefone = model.Telefone;
                 database.Add(aluno);
                 database.SaveChanges();
 
@@ -91,7 +83,7 @@ namespace APIEscolaArabe.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar criar uma categoria. Erro: {ex.Message}");
+                    $"Erro ao tentar cadastrar um aluno. Erro: {ex.Message}");
 
             }
 
@@ -109,7 +101,7 @@ namespace APIEscolaArabe.Controllers
                 return Ok();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Response.StatusCode = 404;
                 return new ObjectResult("");

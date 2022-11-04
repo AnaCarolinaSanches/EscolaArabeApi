@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EscolaArabeApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221021202840_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221102221404_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,12 +27,6 @@ namespace EscolaArabeApi.Migrations
 
                     b.Property<string>("CPF")
                         .HasColumnType("longtext");
-
-                    b.Property<int>("IdCurso")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdEndereco")
-                        .HasColumnType("int");
 
                     b.Property<string>("Matricula")
                         .HasColumnType("longtext");

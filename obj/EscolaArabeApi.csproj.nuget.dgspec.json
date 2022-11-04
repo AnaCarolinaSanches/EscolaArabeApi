@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\MyProjects\\EscolaArabeApi\\EscolaArabeApi.csproj": {}
+    "C:\\MyProjects\\EscolaArabeApi\\EscolaArabeApi.csproj": {}
   },
   "projects": {
-    "c:\\MyProjects\\EscolaArabeApi\\EscolaArabeApi.csproj": {
+    "C:\\MyProjects\\EscolaArabeApi\\EscolaArabeApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\MyProjects\\EscolaArabeApi\\EscolaArabeApi.csproj",
+        "projectUniqueName": "C:\\MyProjects\\EscolaArabeApi\\EscolaArabeApi.csproj",
         "projectName": "EscolaArabeApi",
-        "projectPath": "c:\\MyProjects\\EscolaArabeApi\\EscolaArabeApi.csproj",
+        "projectPath": "C:\\MyProjects\\EscolaArabeApi\\EscolaArabeApi.csproj",
         "packagesPath": "C:\\Users\\aanc\\.nuget\\packages\\",
-        "outputPath": "c:\\MyProjects\\EscolaArabeApi\\obj\\",
+        "outputPath": "C:\\MyProjects\\EscolaArabeApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\aanc\\AppData\\Roaming\\NuGet\\NuGet.Config"
