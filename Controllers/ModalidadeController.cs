@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using APIEscolaArabe.Data;
 using APIEscolaArabe.Models;
 using Microsoft.AspNetCore.Http;
@@ -19,10 +20,15 @@ namespace APIEscolaArabe.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAllModalidades()
         {
-            var modalidades = database.Modalidades.ToList();
-            return Ok(modalidades);
+            IQueryable<Modalidade> query = database.Modalidades.Include(pe => pe.ModalidadeAulas)
+                    .ThenInclude(ad => ad.aula);
+
+
+            var result = await query.ToArrayAsync();
+            return Ok(result);
+
         }
 
         [HttpPost]
@@ -31,14 +37,13 @@ namespace APIEscolaArabe.Controllers
             try
             {
 
-                Modalidade modalidades = new Modalidade();
+                Modalidade modalidade = new Modalidade();
+                modalidade.DiasSemana = model.DiasSemana;
+                modalidade.HorarioAula = model.HorarioAula;
+                modalidade.NomeCurso = model.NomeCurso;
+                modalidade.NomeProf = model.NomeProf;
 
-                modalidades.DiasSemana = model.DiasSemana;
-                modalidades.HorarioAula = model.HorarioAula;
-                modalidades.NomeCurso = model.NomeCurso;
-                modalidades.NomeProf = model.NomeProf;
-
-                database.Add(modalidades);
+                database.Add(modalidade);
                 database.SaveChanges();
 
                 return Ok(new { Msg = "Modalidade criada com sucesso!" });

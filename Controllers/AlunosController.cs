@@ -5,6 +5,8 @@ using System.Linq;
 using EscolaArabeApi.Models.DTO;
 using System;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace APIEscolaArabe.Controllers
 {
@@ -19,10 +21,15 @@ namespace APIEscolaArabe.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAllAlunos()
         {
-            var alunos = database.Alunos.ToList();
-            return Ok(alunos);
+            IQueryable<Aluno> query = database.Alunos.Include(pe => pe.AlunosModalidades)
+                    .ThenInclude(ad => ad.modalidade);
+
+
+            var result = await query.ToArrayAsync();
+            return Ok(result);
+
         }
 
         [HttpPatch]
@@ -74,6 +81,9 @@ namespace APIEscolaArabe.Controllers
                 aluno.Matricula = model.Matricula;
                 aluno.CPF = model.CPF;
                 aluno.Telefone = model.Telefone;
+                aluno.Endereco = database.Enderecos.First(endereco => endereco.Id == model.EnderecoId);
+                //aluno.Modalidade = database.Modalidades.First(modalidade => modalidade.Id == model.ModalidadeId);
+
                 database.Add(aluno);
                 database.SaveChanges();
 

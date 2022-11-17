@@ -8,6 +8,6 @@ namespace APIEscolaArabe.Models
         //public Aluno aluno { get; set; }
         // public Modalidade modalidade { get; set; }
         public int Id { get; set; }
-        public DateTime HorarioAula { get; set; }
+        public string Dia { get; set; }
     }
 }

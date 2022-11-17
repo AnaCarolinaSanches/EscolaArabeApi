@@ -29,11 +29,11 @@ namespace APIEscolaArabe.Controllers
         {
             try
             {
-                Aula aulas = new Aula();
+                Aula aula = new Aula();
 
-                aulas.HorarioAula = model.HorarioAula;
+                aula.Dia = model.Dia;
 
-                database.Add(aulas);
+                database.Add(aula);
                 database.SaveChanges();
 
                 return Ok(new { Msg = "Aula criada com sucesso!" });
@@ -77,7 +77,7 @@ namespace APIEscolaArabe.Controllers
                     var a = database.Aulas.First(atemp => atemp.Id == aula.Id);
                     if (a != null)
                     {
-                        a.HorarioAula = a.HorarioAula != null ? aula.HorarioAula : a.HorarioAula;
+                        a.Dia = a.Dia != null ? aula.Dia : a.Dia;
 
                         database.SaveChanges();
                         return Ok(new { msg = "Aula editada com sucesso." });

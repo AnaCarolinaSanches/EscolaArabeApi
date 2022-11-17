@@ -3,14 +3,16 @@ using System;
 using APIEscolaArabe.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EscolaArabeApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221109020244_Dependencias")]
+    partial class Dependencias
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,9 +28,6 @@ namespace EscolaArabeApi.Migrations
                     b.Property<string>("CPF")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("EnderecoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Matricula")
                         .HasColumnType("longtext");
 
@@ -38,9 +37,22 @@ namespace EscolaArabeApi.Migrations
                     b.Property<string>("Telefone")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("aulaId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("enderecoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("modalidadeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("EnderecoId");
+                    b.HasIndex("aulaId");
+
+                    b.HasIndex("enderecoId");
+
+                    b.HasIndex("modalidadeId");
 
                     b.ToTable("Alunos");
                 });
@@ -51,8 +63,8 @@ namespace EscolaArabeApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Dia")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("HorarioAula")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -108,91 +120,25 @@ namespace EscolaArabeApi.Migrations
                     b.ToTable("Modalidades");
                 });
 
-            modelBuilder.Entity("EscolaArabeApi.Models.AlunoModalidade", b =>
-                {
-                    b.Property<int>("AlunoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ModalidadeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AlunoId", "ModalidadeId");
-
-                    b.HasIndex("ModalidadeId");
-
-                    b.ToTable("AlunoModalidades");
-                });
-
-            modelBuilder.Entity("EscolaArabeApi.Models.ModalidadeAula", b =>
-                {
-                    b.Property<int>("AulaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ModalidadeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AulaId", "ModalidadeId");
-
-                    b.HasIndex("ModalidadeId");
-
-                    b.ToTable("ModalidadeAula");
-                });
-
             modelBuilder.Entity("APIEscolaArabe.Models.Aluno", b =>
-                {
-                    b.HasOne("APIEscolaArabe.Models.Endereco", "Endereco")
-                        .WithMany()
-                        .HasForeignKey("EnderecoId");
-
-                    b.Navigation("Endereco");
-                });
-
-            modelBuilder.Entity("EscolaArabeApi.Models.AlunoModalidade", b =>
-                {
-                    b.HasOne("APIEscolaArabe.Models.Aluno", "Aluno")
-                        .WithMany("AlunosModalidades")
-                        .HasForeignKey("AlunoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("APIEscolaArabe.Models.Modalidade", "modalidade")
-                        .WithMany()
-                        .HasForeignKey("ModalidadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Aluno");
-
-                    b.Navigation("modalidade");
-                });
-
-            modelBuilder.Entity("EscolaArabeApi.Models.ModalidadeAula", b =>
                 {
                     b.HasOne("APIEscolaArabe.Models.Aula", "aula")
                         .WithMany()
-                        .HasForeignKey("AulaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("aulaId");
+
+                    b.HasOne("APIEscolaArabe.Models.Endereco", "endereco")
+                        .WithMany()
+                        .HasForeignKey("enderecoId");
 
                     b.HasOne("APIEscolaArabe.Models.Modalidade", "modalidade")
-                        .WithMany("ModalidadeAulas")
-                        .HasForeignKey("ModalidadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("modalidadeId");
 
                     b.Navigation("aula");
 
+                    b.Navigation("endereco");
+
                     b.Navigation("modalidade");
-                });
-
-            modelBuilder.Entity("APIEscolaArabe.Models.Aluno", b =>
-                {
-                    b.Navigation("AlunosModalidades");
-                });
-
-            modelBuilder.Entity("APIEscolaArabe.Models.Modalidade", b =>
-                {
-                    b.Navigation("ModalidadeAulas");
                 });
 #pragma warning restore 612, 618
         }
