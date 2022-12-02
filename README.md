@@ -18,7 +18,7 @@ Para tornar o projeto mais eficiente, escolhemos o padrão DDD (Domain-Driven De
 
 ## Status do Projeto 
 <h4> 
-    :construction:  Projeto em construção  :construction:
+    :heavy_check_mark: Projeto versão 1
 </h4>
 <br>
 
