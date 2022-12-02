@@ -1,7 +1,7 @@
 <h1 align="center"> Projeto Api de uma EscolaArabe </h1>
 
 <p align="center">
-    <img width=200px height=200px src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2Fmarhabadanca%2F&psig=AOvVaw2aotJVzwXKwS_EmDup4Aqj&ust=1670072535608000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPCTt5P_2vsCFQAAAAAdAAAAABAE" alt="Project logo">
+    <img width=200px height=200px src="305490021_736016717815626_1772479463192642593_n.jpg" alt="Project logo">
 
 <p align="center">
 <img src="https://img.shields.io/badge/status-active-success.svg"/>
